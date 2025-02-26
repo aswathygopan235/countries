@@ -18,6 +18,15 @@ function App() {
     })
   }
     , []);
+
+  function debounce(func, timeout = 500) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+
   function filterRegion(region) {
     let url = (region !== "") ? "https://restcountries.com/v3.1/region/" + region : "https://restcountries.com/v3.1/all";
     fetch(url).then(res => res.json()).then((result) => {
@@ -26,13 +35,25 @@ function App() {
       console.log(error);
     })
   }
+
+
+
+
+  const processCountrySearch = (e) => {
+    let term = e.target.value;
+    searchCountry(term)
+
+  }
+
+  const processCountrySearchChange = debounce(processCountrySearch);
+
   function searchCountry(term) {
 
     if (!term || !term.trim()) {
       //str is null, undefined, or contains only spaces
 
       alert("cannot start with empty spaces");
-      document.getElementById("search-word").value="";
+      document.getElementById("search-word").value = "";
 
 
     } else {
@@ -77,11 +98,7 @@ function App() {
           {/* search term */}
           <div className="col-sm-12 col-md-4 my-3">
             <div className="form-group shadow-sm">
-              <input type="text" className="form-control py-3" id="search-word" name="search-word" placeholder="Search for country..." onChange={(e) => {
-                let term = e.target.value;
-                searchCountry(term);
-              }
-              } />
+              <input type="text" className="form-control py-3" id="search-word" name="search-word" placeholder="Search for country..." onKeyUp={processCountrySearchChange} />
             </div>
           </div>
           {/* ./search term */}
@@ -111,7 +128,7 @@ function App() {
       {/* ./search */}
 
 
-      
+
       {/* country cards */}
 
       <div className="row m-0 gy-5 gx-5 px-4 py-4" id="data-area">
