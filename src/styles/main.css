@@ -1,0 +1,56 @@
+[data-theme='dark'] {
+    --background: black;
+    --text-primary: white;
+
+}
+
+
+
+
+
+
+:root {
+    --background: white;
+    --text-primary: black;
+}
+
+.main-app {
+
+    color: var(--text-primary);
+    background-color: var(--background);
+    height: 100vh;
+
+}
+
+#data-area{
+    background-color: var(--background);
+    min-height: 100%;
+
+}
+
+button {
+    color: var(--text-primary);
+    background-color: var(--background);
+    border: 2px var(--text-primary) solid;
+    float: right;
+    transition: all .5s;
+}
+
+
+input[type=text],
+option,
+input[type=text]:focus,
+.card-body,
+h4,
+.key,
+body,
+.val {
+    color: var(--text-primary);
+    background-color: var(--background);
+}
+
+select,
+select:after {
+    color: var(--text-primary) !important;
+    background: var(--background) !important;
+}
